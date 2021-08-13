@@ -104,9 +104,9 @@ name = str('G')
 ```
 A = accelerating voltage of microscope in keV ~ 100-200  
 B = spherical abberation constant ~ 2 * 10^7  
-C = defocus in angstrom _... this can varry widely_ ~ 10,000
-d .... do not change
-E = standard deviation of gaussian noise
+C = defocus in angstrom _... this can varry widely_ ~ 10,000  
+d .... do not change  
+E = standard deviation of gaussian noise  
 F = standard deviation of gaussian noise model #2  
 
 ---
