@@ -47,4 +47,3 @@ def randomquat( ):
     q=[q1, q2, q3, q4]      # this is the output of a quaternion... is q1 or q4 the integer????
      
     return(q)
-
