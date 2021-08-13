@@ -21,7 +21,7 @@ This project was made by Devon Kleeblatt in the summer of 2021 while he was work
    - matplotlib
    - biopython
 3. Edit the python scripts as descibed in the next section
-4. Run script_CTF.py
+#4. Run script_CTF.py
 5. There are several outputs of this program, including:  
    - 2D projection of the proteins... visualization of the weak phase approximation
    - Images of the 1D, 2D contrast transfer function
