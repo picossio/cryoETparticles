@@ -19,7 +19,7 @@ This project was made by Devon Kleeblatt in the summer of 2021 while he was work
    - scipy
    - math
    - matplotlib
-   - Bio
+   - biopython
 3. Edit the python scripts as descibed in the next section
 4. Run script_CTF.py
 5. There are several outputs of this program, including:  
