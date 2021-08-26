@@ -1,0 +1,90 @@
+﻿Workflow for crosscorrelation graph 
+
+
+ssh -p 61022 dkleeblatt@gateway.flatironinstitute.org
+
+
+TO DO:
+1. PUT ALL RELEVANT FILES IN FOLDER:
+— pdb
+— param bioem
+— quaternions
+— micrograph from your code
+* Write-micro.sh
+
+
+***command to upload things to the cluster***
+scp -P 61022 /Users/dkleebatt/VS_Code_projects/Micrograph_Generator/txt_data_files/cc.txt dkleeblatt@gateway.flatironinstitute.org:
+
+
+2. PUT MICROGRAPH IN CORRECT FORMAT
+add version of micrograph data where center positions are removed
+        sed ’1,num_protein +5 d’ filename > new_filename
+
+
+first put write-micro in the new folder and change it so that the correct txt file is selected
+also alter the text so that it selects the correct data
+
+
+nano write-micro.sh
+
+
+(ADDRESSTO)/write-micro.sh NAMEOFOUTPUTFROMYOURCODE
+
+
+3. CHANGE PARAMETERS FROM YOUR CODE TO PARAMBIOEM FILE
+
+
+NUMBER_PIXELS 1000  
+PIXEL_SIZE 1.25
+USE_QUATERNIONS             
+CTF_DEFOCUS 1.0 1.0 1 # in micrometers
+CTF_B_ENV   1 1 1  
+CTF_AMPLITUDE 0.1 0.1 1
+PRIOR_DEFOCUS_CENTER  1.0
+SIGMA_PRIOR_DEFOCUS   1.0
+SIGMA_PRIOR_B_CTF     1
+DISPLACE_CENTER  80 4
+WRITE_CROSSCOR
+CROSSCOR_DISPLACE 5
+
+
+
+
+
+
+4. RUN BIOEM
+
+
+module load gcc/7.4.0 cmake/3.13.2 lib/fftw3/3.3.8 openmpi4/4.0.5
+module load lib/boost/1.68-gcc7
+
+
+The two commands below are examples of how to run the calculation
+
+
+../BioEM-2015/bioEM --Modelfile 4f5s.pdb --ReadPDB --Particlesfile tmp --Inputfile paramDevon --ReadOrientation QUATERNION_LIST_4608_Orient
+
+
+../BioEM-2015/bioEM --Modelfile 4f5s.pdb --ReadPDB --Particlesfile micro_i-a_100_cut.txt --Inputfile Param_cc  --ReadOrientation QUATERNION_LIST_4608_Orient
+
+
+../BioEM-2015/bioEM --Modelfile sphere.txt --Particlesfile micro_i-a_100_cut.txt --Inputfile Param_cc --ReadOrientation QUATERNION_LIST_4608_Orient
+this is for doing the sphere shit
+
+
+NAMES ARE GOING TO CHANGE
+tmp=micro-NAMEOFYOUROUTPUTFILE
+
+
+5. UPLOAD CROSSCORRELATION TO LAPTOP 
+do this on a local terminal!!!
+scp -P 61022 dkleeblatt@gateway.flatironinstitute.org:/mnt/home/dkleeblatt/cc_BioEM/CROSS_CORRELATION /Users/dkleebatt/VS_Code_projects/Micrograph_Generator
+
+
+6. GRAPH CROSSCORRELATION
+python program works well… make sure to adjust for image size
+
+
+this command gets rid of file does not exist or access issues
+chmod a+wx find-cc-match.sh
